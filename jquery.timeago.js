@@ -29,6 +29,7 @@
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
+      supressNewerThan: 0,
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
@@ -66,6 +67,11 @@
       var days = hours / 24;
       var years = days / 365;
 
+      if (seconds < this.settings.supressNewerThan)
+      {
+        return ""
+      }
+      
       function substitute(stringOrFunction, number) {
         var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, distanceMillis) : stringOrFunction;
         var value = ($l.numbers && $l.numbers[number]) || number;
